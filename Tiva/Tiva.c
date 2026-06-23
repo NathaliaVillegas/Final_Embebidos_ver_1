@@ -2,16 +2,16 @@
 #include <stdbool.h>
 
 #include "inc/hw_memmap.h"
-#include "inc/hw_ints.h" // Necesario para las macros de interrupciones
+#include "inc/hw_ints.h"
 
 #include "driverlib/sysctl.h"
 #include "driverlib/gpio.h"
 #include "driverlib/uart.h"
 #include "driverlib/pin_map.h"
-#include "driverlib/interrupt.h" // Necesario para habilitar el NVIC
+#include "driverlib/interrupt.h"
 
 //====================================================
-// VARIABLES GLOBALES (Seguras en .bss)
+// VARIABLES GLOBALES 
 //====================================================
 
 volatile uint32_t total = 0;
@@ -25,7 +25,7 @@ char buffer[20];
 uint8_t idx = 0;
 
 //====================================================
-// INTERRUPCIÓN UART3 (Totalmente enrutada a UART3_BASE)
+// INTERRUPCIÓN UART3
 //====================================================
 
 void UART3IntHandler(void)
@@ -41,7 +41,6 @@ void UART3IntHandler(void)
             idx = 0;
             
             if(buffer[0] == 'S'){
-                // Conversión de String a Int manual (Reemplaza a strtol y evita errores de memoria)
                 uint32_t valor_temporal = 0;
                 uint8_t i = 1;
                 while(buffer[i] >= '0' && buffer[i] <= '9'){
@@ -138,7 +137,6 @@ void EventoIncorrecto(void){
 
 void ConfigurarHardware(void)
 {
-    // Asegurar que las interrupciones globales estén apagadas durante la configuración
     IntMasterDisable();
 
     //====================
@@ -169,7 +167,7 @@ void ConfigurarHardware(void)
     GPIOPinWrite(GPIO_PORTM_BASE, 0x03, 0x00);
 
     //====================
-    // UART3 Config (Corregido: Relojes e Interrupciones)
+    // UART3 Config
     //====================
     SysCtlPeripheralEnable(SYSCTL_PERIPH_UART3);
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
@@ -198,7 +196,6 @@ int main(void)
     SysCtlClockFreqSet((SYSCTL_XTAL_25MHZ | SYSCTL_OSC_MAIN | SYSCTL_USE_PLL | SYSCTL_CFG_VCO_240), 120000000);
 
     ConfigurarHardware();
-    // Habilitar interrupciones globales solo hasta que todo esté listo
     IntMasterEnable();
     MostrarBinario(0);
 
