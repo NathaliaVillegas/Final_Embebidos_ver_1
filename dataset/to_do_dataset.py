@@ -62,7 +62,7 @@ def next_index(folder, prefix):
 # CAMARA
 # =========================
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(url)
 
 cv2.namedWindow("Camara", cv2.WINDOW_NORMAL)
 
