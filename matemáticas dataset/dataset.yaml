@@ -1,0 +1,23 @@
+path: Dataset_filtrado_final
+
+train: images/train
+val: images/val
+
+names:
+  0: zero
+  1: one
+  2: two
+  3: three
+  4: four
+  5: five
+  6: six
+  7: seven
+  8: eight
+  9: nine
+  10: plus
+  11: minus
+  12: multiply
+  13: divide
+  14: equal
+  15: open_paren
+  16: close_paren
